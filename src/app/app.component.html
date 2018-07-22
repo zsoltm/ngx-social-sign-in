@@ -6,12 +6,8 @@
   <button class="btn btn-social m-2"><img src="assets/icons/facebook.svg" class="m-1" />Log in with Facebook</button>
   <button class="btn btn-social m-2"><img src="assets/icons/google-plus.svg" class="m-1" />Log in with Google Plus</button>
 
+  <h2>Status</h2>
   <p>
-    <code class="code">{{ '{' }}
-      "asd": 1,
-      "bsd": {{ '{' }}
-        "x": 1
-        {{ '}' }}
-      {{ '}' }}</code>
+    <code class="code">{{ loginStatus | json }}</code>
   </p>
 </div>
