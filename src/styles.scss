@@ -1,0 +1,59 @@
+/* You can add global styles to this file, and also import other style files */
+@import "../submodule/spectre/src/variables";
+
+// mixins
+// @import "../submodule/spectre/src/mixins/avatar";
+@import "../submodule/spectre/src/mixins/button";
+@import "../submodule/spectre/src/mixins/clearfix";
+@import "../submodule/spectre/src/mixins/color";
+@import "../submodule/spectre/src/mixins/label";
+@import "../submodule/spectre/src/mixins/position";
+@import "../submodule/spectre/src/mixins/shadow";
+@import "../submodule/spectre/src/mixins/text";
+// @import "../submodule/spectre/src/mixins/toast";
+@import "../submodule/spectre/src/mixins/transition";
+
+/*! Spectre.css v#{$version} | MIT License | github.com/picturepan2/spectre */
+// Reset and dependencies
+@import "../submodule/spectre/src/normalize";
+@import "../submodule/spectre/src/base";
+
+// Elements
+@import "../submodule/spectre/src/typography";
+// @import "../submodule/spectre/src/asian";
+// @import "../submodule/spectre/src/tables";
+@import "../submodule/spectre/src/buttons";
+// @import "../submodule/spectre/src/forms";
+// @import "../submodule/spectre/src/labels";
+// @import "../submodule/spectre/src/codes";
+// @import "../submodule/spectre/src/media";
+
+// Layout
+@import "../submodule/spectre/src/layout";
+// @import "../submodule/spectre/src/navbar";
+
+// Components
+// @import "../submodule/spectre/src/accordions";
+// @import "../submodule/spectre/src/avatars";
+// @import "../submodule/spectre/src/badges";
+// @import "../submodule/spectre/src/breadcrumbs";
+// @import "../submodule/spectre/src/bars";
+// @import "../submodule/spectre/src/cards";
+// @import "../submodule/spectre/src/chips";
+// @import "../submodule/spectre/src/dropdowns";
+// @import "../submodule/spectre/src/empty";
+// @import "../submodule/spectre/src/menus";
+// @import "../submodule/spectre/src/modals";
+// @import "../submodule/spectre/src/navs";
+// @import "../submodule/spectre/src/pagination";
+// @import "../submodule/spectre/src/panels";
+// @import "../submodule/spectre/src/popovers";
+// @import "../submodule/spectre/src/steps";
+// @import "../submodule/spectre/src/tabs";
+// @import "../submodule/spectre/src/tiles";
+// @import "../submodule/spectre/src/toasts";
+// @import "../submodule/spectre/src/tooltips";
+
+// Utility classes
+// @import "../submodule/spectre/src/animations";
+@import "../submodule/spectre/src/utilities";
