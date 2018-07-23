@@ -2,8 +2,7 @@ import { NgModule } from "@angular/core";
 import { CommonModule, DOCUMENT } from "@angular/common";
 import { SocialLoginService } from "./social-login.service";
 import { LoginServiceConfig } from "./login-service-config";
-import { facebookLoginServiceProvider } from "./impl/facebook/facebook-login-service-provider";
-import { providers } from "./impl";
+import { FacebookLoginService } from "./impl/facebook/facebook-login-service";
 
 @NgModule({
   imports: [
@@ -12,7 +11,13 @@ import { providers } from "./impl";
   declarations: [],
   providers: [
     SocialLoginService,
-    ...providers
+    {
+      provide: FacebookLoginService,
+      useFactory: (document: Document, config: LoginServiceConfig) => config.services.facebook && document ?
+        new FacebookLoginService(document, config.services.facebook) :
+        null,
+      deps: [DOCUMENT, LoginServiceConfig]
+    }
   ]
 })
 export class SocialLoginModule {}

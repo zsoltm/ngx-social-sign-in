@@ -1,3 +1,5 @@
+/// <reference types="facebook-js-sdk"/>
+
 import { Injectable, Optional } from "@angular/core";
 import { LoginServiceConfig } from "../../login-service-config";
 import { FacebookConfig } from "./facebook-config";
@@ -5,21 +7,39 @@ import { LoginService } from "../../login-service";
 import { Observable, BehaviorSubject } from "rxjs";
 import { LoginStatus } from "../../login-status";
 
+// Check https://developers.facebook.com/docs/graph-api/changelog/
+const FB_API_VERSION = "v3.0";
+
 @Injectable()
 export class FacebookLoginService implements LoginService {
     static readonly ID = "facebook";
     readonly id = FacebookLoginService.ID;
 
-    constructor(@Optional() window: Window, private readonly _config: FacebookConfig) {
-        console.log("Facebook Config: %o", this._config);
+    private readonly _initParams: fb.InitParams;
+    private readonly _url: string;
+
+    constructor(@Optional() document: Document, _config: FacebookConfig) {
+        this._initParams = this._createInitParams(_config);
+        this._url = `https://connect.facebook.net/${_config.language || "en_US"}/${
+            _config.debug ? "sdk/debug.js" : "sdk.js"}`;
     }
 
     loginStatus(): Observable<LoginStatus> {
         return new BehaviorSubject({} as LoginStatus).asObservable();
     }
 
-    private async _addAsyncCallbackHookToWindow() {
+    private _addAsyncCallbackHookToWindow(window: Window) {
         // window["fbAsyncInit"] = () => {
         // }
+    }
+
+    private _createInitParams(config: FacebookConfig): fb.InitParams {
+        const initParams: fb.InitParams = {
+            appId: config.appId,
+            version: FB_API_VERSION
+        };
+        if (config.cookie) initParams.cookie = config.cookie;
+        if (config.xfbml) initParams.xfbml = config.xfbml;
+        return initParams;
     }
 }
