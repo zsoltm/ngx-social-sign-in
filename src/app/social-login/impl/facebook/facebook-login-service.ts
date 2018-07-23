@@ -1,42 +1,49 @@
-/// <reference types="facebook-js-sdk"/>
-
 import { FacebookConfig } from "./facebook-config";
 import { LoginService } from "../../login-service";
 import { Observable, BehaviorSubject } from "rxjs";
-import { LoginStatus } from "../../login-status";
-
-// Check https://developers.facebook.com/docs/graph-api/changelog/
-const FB_API_VERSION = "v3.0";
+import { map, tap, flatMap } from "rxjs/operators";
+import { LoginToken } from "../../login-token";
+import { FacebookSdkWrapper } from "./facebook-sdk-wrapper";
+import { UserDetails } from "../../user-details";
+import { ApiUserDetailsResponse } from "./api-user-details-response";
 
 export class FacebookLoginService implements LoginService {
     static readonly ID = "facebook";
     readonly id = FacebookLoginService.ID;
 
-    private readonly _initParams: fb.InitParams;
-    private readonly _url: string;
+    private readonly _sdkWrapper: FacebookSdkWrapper;
+    private readonly _loginStatus: BehaviorSubject<LoginToken> = new BehaviorSubject({} as LoginToken);
 
     constructor(document: Document, _config: FacebookConfig) {
-        this._initParams = this._createInitParams(_config);
-        this._url = `https://connect.facebook.net/${_config.language || "en_US"}/${
-            _config.debug ? "sdk/debug.js" : "sdk.js"}`;
+        this._sdkWrapper = new FacebookSdkWrapper(_config, document);
     }
 
-    loginStatus(): Observable<LoginStatus> {
-        return new BehaviorSubject({} as LoginStatus).asObservable();
+    loginStatus(): Observable<LoginToken> {
+        return this._loginStatus;
     }
 
-    private _addAsyncCallbackHookToWindow(window: Window) {
-        // window["fbAsyncInit"] = () => {
-        // }
+    login(): Observable<LoginToken> {
+        return this._sdkWrapper.sdk.pipe(
+            flatMap((sdk) => sdk.login({scope: 'public_profile,email'})),
+            map((authResponse: fb.AuthResponse) => (
+                {
+                    id: authResponse.userID,
+                    token: authResponse.accessToken
+                }
+            )),
+            tap((loginStatus) => this._loginStatus.next(loginStatus))
+        );
     }
 
-    private _createInitParams(config: FacebookConfig): fb.InitParams {
-        const initParams: fb.InitParams = {
-            appId: config.appId,
-            version: FB_API_VERSION
-        };
-        if (config.cookie) initParams.cookie = config.cookie;
-        if (config.xfbml) initParams.xfbml = config.xfbml;
-        return initParams;
+    userDetails(token: LoginToken): Observable<UserDetails> {
+        return this._sdkWrapper.sdk.pipe(
+            flatMap((sdk) => sdk.userDetails(token)),
+            map((apiDetails: ApiUserDetailsResponse) => ({
+                name: apiDetails.name,
+                email: apiDetails.email,
+                id: apiDetails.id,
+                picture: apiDetails.picture.data.url
+            }))
+        );
     }
 }

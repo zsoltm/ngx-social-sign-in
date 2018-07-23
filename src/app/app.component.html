@@ -3,11 +3,19 @@
     {{ title }}
   </h1>
 
-  <button class="btn btn-social m-2"><img src="assets/icons/facebook.svg" class="m-1" />Log in with Facebook</button>
-  <button class="btn btn-social m-2"><img src="assets/icons/google-plus.svg" class="m-1" />Log in with Google Plus</button>
+  <button class="btn btn-social mr-2" (click)="loginFacebook()"><img src="assets/icons/facebook.svg" class="m-1" />Log in with Facebook</button>
+  <button class="btn btn-social mr-2"><img src="assets/icons/google-plus.svg" class="m-1" />Log in with Google Plus</button>
 
   <h2>Status</h2>
   <p>
     <code class="code">{{ loginStatus | json }}</code>
   </p>
+
+  <h2>User Details</h2>
+  <p>FaceBook:</p>
+  <p>
+    <code class="code">{{ facebookUserDetails | json }}</code>
+    <img *ngIf="facebookUserDetails" [src]="facebookUserDetails.picture" />
+  </p>
+
 </div>

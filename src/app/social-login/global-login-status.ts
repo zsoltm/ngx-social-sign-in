@@ -1,5 +1,5 @@
-import { LoginStatus } from "./login-status";
+import { LoginToken } from "./login-token";
 
 export interface GlobalLoginStatus {
-    facebook?: LoginStatus;
+    facebook?: LoginToken;
 }

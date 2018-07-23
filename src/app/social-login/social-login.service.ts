@@ -5,7 +5,7 @@ import { LoginServiceConfig } from "./login-service-config";
 import { services } from "./impl";
 import { LoginService } from "./login-service";
 import { Services } from "@angular/core/src/view";
-import { LoginStatus } from "./login-status";
+import { LoginToken } from "./login-token";
 
 @Injectable()
 export class SocialLoginService {
@@ -36,7 +36,7 @@ export class SocialLoginService {
         return service;
     }
 
-    _updateLoginStatus(id: any, loginStatus: LoginStatus): any {
+    _updateLoginStatus(id: any, loginStatus: LoginToken): any {
         this._loginStatus = Object.assign({}, this._loginStatus, {[id]: loginStatus});
         this._loginStatusSubject.next(this._loginStatus);
     }
