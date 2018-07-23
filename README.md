@@ -6,6 +6,7 @@ Social login module for Angular that supports Facebook, Google and other provide
 Design gooals are
 
 + make it lazy, not load the various 3rd API scripts until it's necessary;
++ make it possible to fetch user details in either server side or client side;
 + clean API.
 
 Supported providers:
