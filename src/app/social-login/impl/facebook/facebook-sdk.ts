@@ -30,10 +30,4 @@ export class FacebookSdk {
                     });
         }));
     }
-
-
-    // FB.api("2233131936713364", "GET", {fields: ["email", "name"]}, function (r) { console.log("Response %o", r); });
-    // {"email":"zsolt@meszarovics.name","name":"Zsolt Mészárovics","id":"2233131936713364"}
-    // FB.api("2233131936713364/picture", "GET", {"type": "large", "redirect": 0}, function (r) { console.log("Response %o", r); });
-    // {"data":{"height":200,"is_silhouette":false,"url":"https://platform-lookaside.fbsbx.com/platform/profilepic/?asid=2233131936713364&height=200&width=200&ext=1532610349&hash=AeRQAW1YMKixFXsp","width":200}}
 }

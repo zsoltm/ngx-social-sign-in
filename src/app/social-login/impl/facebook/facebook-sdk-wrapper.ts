@@ -16,7 +16,7 @@ const createInitParams = (config: FacebookConfig): fb.InitParams => {
     if (config.cookie) initParams.cookie = config.cookie;
     if (config.xfbml) initParams.xfbml = config.xfbml;
     return initParams;
-}
+};
 
 const loadFacebookSdkScript = (document: Document, url: string) => {
     if (document.getElementById(FB_API_SCRIPT_ID)) return;
@@ -36,7 +36,7 @@ export class FacebookSdkWrapper {
         private readonly _document: Document
     ) {
         this._url =
-            `https://connect.facebook.net/${_config.language || "en_US"}/${_config.debug ? "sdk/debug.js" : "sdk.js"}`
+            `https://connect.facebook.net/${_config.language || "en_US"}/${_config.debug ? "sdk/debug.js" : "sdk.js"}`;
         this._initParams = createInitParams(_config);
     }
 

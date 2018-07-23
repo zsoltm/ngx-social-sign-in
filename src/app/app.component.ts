@@ -9,8 +9,7 @@ import { flatMap } from "rxjs/operators";
 @Component({
   selector: "app-root",
   templateUrl: "./app.component.html",
-  styleUrls: ["./app.component.scss"],
-  changeDetection: ChangeDetectionStrategy.OnPush
+  styleUrls: ["./app.component.scss"]
 })
 export class AppComponent implements OnInit {
   private readonly _faceBookLoginService: LoginService;
@@ -19,7 +18,7 @@ export class AppComponent implements OnInit {
   loginStatus: GlobalLoginStatus = {};
   facebookUserDetails?: UserDetails;
 
-  constructor(private readonly _loginService: SocialLoginService, private _cd: ChangeDetectorRef) {
+  constructor(private readonly _loginService: SocialLoginService) {
     this._faceBookLoginService = this._loginService.impl(FacebookLoginService.ID);
   }
 
@@ -33,9 +32,13 @@ export class AppComponent implements OnInit {
     this._faceBookLoginService.login()
       .pipe(flatMap((token) => this._faceBookLoginService.userDetails(token)))
       .subscribe((details) => {
-        this.facebookUserDetails = details;
-        this._cd.detectChanges();
+        // this._cd.detectChanges();
         console.log("Facebook User Details: %o", details);
+        this.facebookUserDetails = details;
       });
+  }
+
+  loginGoogle() {
+    console.log("login google");
   }
 }
