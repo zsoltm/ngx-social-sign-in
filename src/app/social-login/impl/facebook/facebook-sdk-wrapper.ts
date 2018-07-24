@@ -48,7 +48,6 @@ export class FacebookSdkWrapper {
         loadFacebookSdkScript(this._document, this._url);
         const sdkPromise: Promise<FacebookSdk> = new Promise((resolve) => {
             Object.assign(window, {fbAsyncInit: () => {
-                console.log("FB async init %o", this._initParams);
                 FB.init(this._initParams);
                 resolve(new FacebookSdk());
             }});

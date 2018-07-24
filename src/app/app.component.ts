@@ -32,7 +32,6 @@ export class AppComponent implements OnInit {
     this._faceBookLoginService.login()
       .pipe(flatMap((token) => this._faceBookLoginService.userDetails(token)))
       .subscribe((details) => {
-        // this._cd.detectChanges();
         console.log("Facebook User Details: %o", details);
         this.facebookUserDetails = details;
       });

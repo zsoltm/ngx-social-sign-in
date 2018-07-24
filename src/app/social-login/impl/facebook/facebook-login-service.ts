@@ -1,3 +1,4 @@
+import { ApplicationRef } from "@angular/core";
 import { FacebookConfig } from "./facebook-config";
 import { LoginService } from "../../login-service";
 import { Observable, BehaviorSubject, from } from "rxjs";
@@ -6,7 +7,6 @@ import { LoginToken } from "../../login-token";
 import { FacebookSdkWrapper } from "./facebook-sdk-wrapper";
 import { UserDetails } from "../../user-details";
 import { ApiUserDetailsResponse } from "./api-user-details-response";
-import { NgZone } from "@angular/core";
 
 export class FacebookLoginService implements LoginService {
     static readonly ID = "facebook";
@@ -15,7 +15,7 @@ export class FacebookLoginService implements LoginService {
     private readonly _sdkWrapper: FacebookSdkWrapper;
     private readonly _loginStatus: BehaviorSubject<LoginToken> = new BehaviorSubject({} as LoginToken);
 
-    constructor(document: Document, _config: FacebookConfig, private readonly _zone: NgZone) {
+    constructor(document: Document, _config: FacebookConfig, private readonly _appRef: ApplicationRef) {
         this._sdkWrapper = new FacebookSdkWrapper(_config, document);
     }
 
@@ -37,23 +37,21 @@ export class FacebookLoginService implements LoginService {
     }
 
     userDetails(token: LoginToken): Observable<UserDetails> {
-        let n: any;
-        const promise: Promise<UserDetails> = new Promise((resolve) => {
-            n = resolve;
-        });
-
-        this._sdkWrapper.sdk
+        return this._sdkWrapper.sdk
             .pipe(
-                flatMap((sdk) => this._zone.runOutsideAngular(() => sdk.userDetails(token)))
-            )
-            .subscribe((apiDetails: ApiUserDetailsResponse) => this._zone.run(() => n({
-                name: apiDetails.name,
-                email: apiDetails.email,
-                id: apiDetails.id,
-                picture: apiDetails.picture.data.url
-            }
-            )));
-
-        return from(promise);
+                flatMap((sdk) => sdk.userDetails(token)),
+                map((apiDetails: ApiUserDetailsResponse) => (
+                    {
+                        name: apiDetails.name,
+                        email: apiDetails.email,
+                        id: apiDetails.id,
+                        picture: apiDetails.picture.data.url
+                    })),
+                tap({
+                    complete: () => {
+                        this._appRef.tick(); // ngzone doesn't notices the change
+                    }
+                })
+            );
     }
 }
