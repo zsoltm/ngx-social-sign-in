@@ -23,6 +23,7 @@ const loadFacebookSdkScript = (document: Document, url: string) => {
     const js = document.createElement("script") as HTMLScriptElement;
     js.id = FB_API_SCRIPT_ID;
     js.src = url;
+    js.async = true;
     document.body.appendChild(js);
 };
 
@@ -45,13 +46,13 @@ export class FacebookSdkWrapper {
     }
 
     private _loadSdk(): Observable<FacebookSdk> {
-        loadFacebookSdkScript(this._document, this._url);
         const sdkPromise: Promise<FacebookSdk> = new Promise((resolve) => {
             Object.assign(window, {fbAsyncInit: () => {
                 FB.init(this._initParams);
                 resolve(new FacebookSdk());
             }});
         });
+        loadFacebookSdkScript(this._document, this._url);
         return (this._sdk = from(sdkPromise));
     }
 }
