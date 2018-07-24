@@ -1,5 +1,6 @@
-import { ApplicationRef } from "@angular/core";
-import { FacebookConfig } from "./facebook-config";
+import { ApplicationRef, Injectable, Inject } from "@angular/core";
+import { DOCUMENT } from "@angular/common";
+import { FacebookConfig, FACEBOOK_CONFIG } from "./facebook-config";
 import { LoginService } from "../../login-service";
 import { Observable, BehaviorSubject, from } from "rxjs";
 import { map, tap, flatMap } from "rxjs/operators";
@@ -8,6 +9,7 @@ import { FacebookSdkWrapper } from "./facebook-sdk-wrapper";
 import { UserDetails } from "../../user-details";
 import { ApiUserDetailsResponse } from "./api-user-details-response";
 
+@Injectable()
 export class FacebookLoginService implements LoginService {
     static readonly ID = "facebook";
     readonly id = FacebookLoginService.ID;
@@ -15,7 +17,9 @@ export class FacebookLoginService implements LoginService {
     private readonly _sdkWrapper: FacebookSdkWrapper;
     private readonly _loginStatus = new BehaviorSubject(null) as BehaviorSubject<LoginToken | null>;
 
-    constructor(document: Document, _config: FacebookConfig, private readonly _appRef: ApplicationRef) {
+    constructor(@Inject(DOCUMENT) document: Document, @Inject(FACEBOOK_CONFIG) _config: FacebookConfig,
+        private readonly _appRef: ApplicationRef
+    ) {
         this._sdkWrapper = new FacebookSdkWrapper(_config, document);
     }
 

@@ -1,3 +1,5 @@
+import { InjectionToken } from "@angular/core";
+
 export interface FacebookConfig {
     /** Your application ID. If you don't have one find it in the App dashboard
      * or go there to create a new app. */
@@ -15,3 +17,5 @@ export interface FacebookConfig {
      */
     debug?: boolean;
 }
+
+export const FACEBOOK_CONFIG = new InjectionToken("GOOGLE_CONFIG");
