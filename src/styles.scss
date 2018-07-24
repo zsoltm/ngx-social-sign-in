@@ -2,7 +2,7 @@
 @import "../submodule/spectre/src/variables";
 
 // mixins
-// @import "../submodule/spectre/src/mixins/avatar";
+@import "../submodule/spectre/src/mixins/avatar";
 @import "../submodule/spectre/src/mixins/button";
 @import "../submodule/spectre/src/mixins/clearfix";
 @import "../submodule/spectre/src/mixins/color";
@@ -34,7 +34,7 @@
 
 // Components
 // @import "../submodule/spectre/src/accordions";
-// @import "../submodule/spectre/src/avatars";
+@import "../submodule/spectre/src/avatars";
 // @import "../submodule/spectre/src/badges";
 // @import "../submodule/spectre/src/breadcrumbs";
 // @import "../submodule/spectre/src/bars";
@@ -46,7 +46,7 @@
 // @import "../submodule/spectre/src/modals";
 // @import "../submodule/spectre/src/navs";
 // @import "../submodule/spectre/src/pagination";
-// @import "../submodule/spectre/src/panels";
+@import "../submodule/spectre/src/panels";
 // @import "../submodule/spectre/src/popovers";
 // @import "../submodule/spectre/src/steps";
 // @import "../submodule/spectre/src/tabs";
