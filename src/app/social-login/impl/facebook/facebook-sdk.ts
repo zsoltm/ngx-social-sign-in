@@ -28,4 +28,10 @@ export class FacebookSdk {
                     });
         }));
     }
+
+    logout(): Observable<any> {
+        return from(new Promise((resolve) => {
+            FB.logout((response) => resolve(response.status === "unknown"));
+        }));
+    }
 }

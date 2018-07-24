@@ -13,13 +13,13 @@ export class FacebookLoginService implements LoginService {
     readonly id = FacebookLoginService.ID;
 
     private readonly _sdkWrapper: FacebookSdkWrapper;
-    private readonly _loginStatus: BehaviorSubject<LoginToken> = new BehaviorSubject({} as LoginToken);
+    private readonly _loginStatus = new BehaviorSubject(null) as BehaviorSubject<LoginToken | null>;
 
     constructor(document: Document, _config: FacebookConfig, private readonly _appRef: ApplicationRef) {
         this._sdkWrapper = new FacebookSdkWrapper(_config, document);
     }
 
-    loginStatus(): Observable<LoginToken> {
+    loginStatus(): Observable<LoginToken | null> {
         return this._loginStatus;
     }
 
@@ -32,8 +32,21 @@ export class FacebookLoginService implements LoginService {
                     token: authResponse.accessToken
                 }
             )),
-            tap((loginStatus) => this._loginStatus.next(loginStatus))
+            tap((loginToken) => this._loginStatus.next(loginToken))
         );
+    }
+
+    logout(): Observable<boolean> {
+        return this._sdkWrapper.sdk
+            .pipe(
+                flatMap((sdk) => sdk.logout()),
+                tap({
+                    next: (logoutSuccess) => {
+                        if (logoutSuccess) this._loginStatus.next(null);
+                    },
+                    complete: () => this._appRef.tick()
+                })
+            );
     }
 
     userDetails(token: LoginToken): Observable<UserDetails> {

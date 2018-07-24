@@ -4,7 +4,8 @@ import { GlobalLoginStatus } from "./social-login/global-login-status";
 import { FacebookLoginService } from "./social-login/impl/facebook/facebook-login-service";
 import { LoginService } from "./social-login/login-service";
 import { UserDetails } from "./social-login/user-details";
-import { flatMap } from "rxjs/operators";
+import { flatMap, tap } from "rxjs/operators";
+import { LoginToken } from "./social-login/login-token";
 
 @Component({
   selector: "app-root",
@@ -12,14 +13,14 @@ import { flatMap } from "rxjs/operators";
   styleUrls: ["./app.component.scss"]
 })
 export class AppComponent implements OnInit {
-  private readonly _faceBookLoginService: LoginService;
-
   title = "Angular-Social-Login";
   loginStatus: GlobalLoginStatus = {};
+  fbLoginToken?: LoginToken;
   facebookUserDetails?: UserDetails;
 
-  constructor(private readonly _loginService: SocialLoginService) {
-    this._faceBookLoginService = this._loginService.impl(FacebookLoginService.ID);
+  constructor(
+      private readonly _loginService: SocialLoginService,
+      private readonly _fbLoginService: FacebookLoginService) {
   }
 
   ngOnInit() {
@@ -29,12 +30,19 @@ export class AppComponent implements OnInit {
   }
 
   loginFacebook() {
-    this._faceBookLoginService.login()
-      .pipe(flatMap((token) => this._faceBookLoginService.userDetails(token)))
+    this._fbLoginService.login() // .subscribe((token) => { this.fbLoginToken = token; });
+      .pipe(
+        tap((token) => { this.fbLoginToken = token; }),
+        flatMap((token) => this._fbLoginService.userDetails(token))
+      )
       .subscribe((details) => {
         console.log("Facebook User Details: %o", details);
         this.facebookUserDetails = details;
       });
+  }
+
+  logoutFacebook() {
+    this._fbLoginService.logout().subscribe((response) => this.facebookUserDetails = undefined);
   }
 
   loginGoogle() {

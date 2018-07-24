@@ -36,7 +36,7 @@ export class SocialLoginService {
         return service;
     }
 
-    _updateLoginStatus(id: any, loginStatus: LoginToken): any {
+    _updateLoginStatus(id: any, loginStatus: LoginToken | null) {
         this._loginStatus = Object.assign({}, this._loginStatus, {[id]: loginStatus});
         this._loginStatusSubject.next(this._loginStatus);
     }

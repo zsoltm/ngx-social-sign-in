@@ -20,6 +20,19 @@ Planned support:
 + Github
 + Microsoft
 
+Configuration
+-------------
+
+### Facebook
+
+Apart from the usual configuration make sure you configure URIs properly:
+
+1. Go to your facebook app console
+2. Go to Settings -> Basic. In Site URL type your url, even if localhost. For example: `http://localhost:4200`
+3. Go to Settings -> Advanced. In Valid OAuth redirect URIs type your url, even if localhost. For example: `http://localhost:4200`
+
+Otherwise you might experience weird issues, like redirects to the facebook home page.
+
 Development
 -----------
 
