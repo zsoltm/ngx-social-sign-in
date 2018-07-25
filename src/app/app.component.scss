@@ -1,5 +1,20 @@
+@import "../../submodule/spectre/src/variables";
+
+h1 {
+    margin-top: $unit-3;
+}
+
+h2 {
+    margin: $unit-4 0 $unit-3 0;
+}
+
+.login-buttons {
+    margin: 0 -$unit-1;
+}
+
 .btn-social {
     height: 2.6rem;
+    margin: $unit-1;
 
     img {
         vertical-align: middle;

@@ -57,3 +57,7 @@
 // Utility classes
 // @import "../submodule/spectre/src/animations";
 @import "../submodule/spectre/src/utilities";
+
+body {
+    padding: $unit-3 0;
+}
