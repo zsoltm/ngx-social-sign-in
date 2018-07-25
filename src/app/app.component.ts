@@ -4,10 +4,10 @@ import { GlobalLoginStatus } from "./social-login/global-login-status";
 import { FacebookLoginService } from "./social-login/impl/facebook/facebook-login-service";
 import { LoginService } from "./social-login/login-service";
 import { UserDetails } from "./social-login/user-details";
-import { flatMap, map, tap } from "rxjs/operators";
+import { flatMap, map } from "rxjs/operators";
 import { LoginToken } from "./social-login/login-token";
 import { GoogleLoginService } from "./social-login/impl/google/google-login-service";
-import { Observable, from } from "rxjs";
+import { Observable } from "rxjs";
 
 @Component({
   selector: "app-root",
