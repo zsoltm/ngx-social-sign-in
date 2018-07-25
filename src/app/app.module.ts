@@ -4,10 +4,11 @@ import { NgModule } from "@angular/core";
 import { AppComponent } from "./app.component";
 import { SocialLoginModule } from "./social-login/social-login.module";
 import { LoginServiceConfig } from "./social-login/login-service-config";
+import { UserDetailsComponent } from "./user-details.component";
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent, UserDetailsComponent
   ],
   imports: [
     BrowserModule, SocialLoginModule

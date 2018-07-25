@@ -7,27 +7,21 @@
       (click)="loginFacebook()"
       [disabled]="loginStatus.facebook"><img src="assets/icons/facebook.svg" class="m-1" />Log in with Facebook</button>
   <button class="btn btn-social mr-2"
-      (click)="loginGoogle()"><img src="assets/icons/google-plus.svg" class="m-1" />Log in with Google Plus</button>
+      (click)="loginGoogle()"
+      [disabled]="loginStatus.google"><img src="assets/icons/google-plus.svg" class="m-1" />Log in with Google Plus</button>
 
   <h2>Global Login Status</h2>
   <pre class="code" data-lang="JSON"><code>{{ loginStatus | json }}</code></pre>
 
-  <div *ngIf="facebookUserDetails" class="panel">
-    <div class="panel-header text-center">
-      <div class="panel-title h5 mb-3">Facebook user detail</div>
-      <figure class="avatar avatar-xl">
-        <img [src]="facebookUserDetails.picture" />
-      </figure>
-      <p class="panel-subtitle">{{ facebookUserDetails.name }}</p>
-    </div>
-    <div class="panel-body">
-      <p>User details:</p>
-      <pre class="code" data-lang="JSON"><code>{{ facebookUserDetails | json }}</code></pre>
-      <p>Login token:</p>
-      <pre class="code" data-lang="JSON"><code>{{ fbLoginToken | json }}</code></pre>
-    </div>
-    <div class="panel-footer">
-      <button class="btn btn-social mr-2" (click)="logoutFacebook()">Logout</button>
-    </div>
-  </div>
+  <app-user-details *ngIf="facebookUserDetails"
+      [title]="'Facebook Login Details'"
+      [userDetails]="facebookUserDetails"
+      (logout)="logoutFacebook()"
+      [loginToken]="fbLoginToken"></app-user-details>
+
+  <app-user-details *ngIf="googleUserDetails"
+      [title]="'Google Login Details'"
+      [userDetails]="googleUserDetails"
+      (logout)="logoutGoogle()"
+      [loginToken]="googleLoginToken"></app-user-details>
 </div>

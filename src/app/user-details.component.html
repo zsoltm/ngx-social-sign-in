@@ -1,0 +1,18 @@
+<div class="panel">
+    <div class="panel-header text-center">
+        <div class="panel-title h5 mb-3">{{ title }}</div>
+        <figure class="avatar avatar-xl">
+            <img [src]="userDetails.picture" />
+        </figure>
+        <p class="panel-subtitle">{{ userDetails.name }}</p>
+    </div>
+    <div class="panel-body">
+        <p>User details:</p>
+        <pre class="code" data-lang="JSON"><code>{{ userDetails | json }}</code></pre>
+        <p>Login token:</p>
+        <pre class="code" data-lang="JSON"><code>{{ loginToken | json }}</code></pre>
+    </div>
+    <div class="panel-footer">
+        <button class="btn btn-social mr-2" (click)="emitLogout()">Logout</button>
+    </div>
+</div>
