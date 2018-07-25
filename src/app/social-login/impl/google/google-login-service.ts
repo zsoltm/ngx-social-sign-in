@@ -5,7 +5,7 @@ import { Observable, BehaviorSubject, from, throwError } from "rxjs";
 import { LoginToken } from "../../login-token";
 import { GapiWrapper } from "./gapi-wrapper";
 import { flatMap, map, tap } from "rxjs/operators";
-import { Injectable, Inject, InjectionToken } from "@angular/core";
+import { Injectable, Inject, InjectionToken, ApplicationRef } from "@angular/core";
 import { UserDetails } from "../../user-details";
 import { GoogleConfig, GOOGLE_CONFIG } from "./google-config";
 
@@ -33,8 +33,9 @@ export class GoogleLoginService implements LoginService {
     private readonly _loginStatus = new BehaviorSubject(null) as BehaviorSubject<LoginToken | null>;
 
     constructor(
+        private readonly _appref: ApplicationRef,
         private readonly _gapiWrapper: GapiWrapper,
-        @Inject(GOOGLE_CONFIG) private readonly _config: GoogleConfig
+        @Inject(GOOGLE_CONFIG) private readonly _config: GoogleConfig,
     ) {}
 
     loginStatus(): Observable<LoginToken | null> {
@@ -65,6 +66,7 @@ export class GoogleLoginService implements LoginService {
                 this._userDetails = undefined;
                 this._loginUser = undefined;
                 this._loginStatus.next(null);
+                this._appref.tick();
             }})
         )
     }
