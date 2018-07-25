@@ -8,4 +8,5 @@ export interface LoginService {
     login(): Observable<LoginToken>;
     logout(): Observable<boolean>;
     userDetails(token: LoginToken): Observable<UserDetails>;
+    loginWithUserDetails(): Observable<[LoginToken, UserDetails]>;
 }

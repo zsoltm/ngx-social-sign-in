@@ -8,6 +8,7 @@ import { FacebookLoginService } from "./impl/facebook/facebook-login-service";
 import { GoogleLoginService } from "./impl/google/google-login-service";
 import { GOOGLE_CONFIG } from "./impl/google/google-config";
 import { FACEBOOK_CONFIG } from "./impl/facebook/facebook-config";
+import { UserDetails } from "./user-details";
 
 const serviceConfigMap: Map<InjectionToken<any>, Type<LoginService>> = new Map([
     [GOOGLE_CONFIG, GoogleLoginService as Type<LoginService>],
@@ -44,6 +45,23 @@ export class SocialLoginService {
         const service = this._serviceMap.get(id);
         if (!service) throw new Error(`Service ${id} is not configured, check config provider.`);
         return service;
+    }
+
+    login(impl: string): Observable<LoginToken> {
+        return this.impl(impl).login();
+    }
+
+    userDetails(impl: string, loginToken: LoginToken): Observable<UserDetails> {
+        return this.impl(impl).userDetails(loginToken);
+    }
+
+    /** Convenience method that logs the user in and immediately fetches user details in on run. */
+    loginWithUserDetails(impl: string): Observable<[LoginToken, UserDetails]> {
+        return this.impl(impl).loginWithUserDetails();
+    }
+
+    logout(impl: string): Observable<boolean> {
+        return this.impl(impl).logout();
     }
 
     _updateLoginStatus(id: any, loginStatus: LoginToken | null) {

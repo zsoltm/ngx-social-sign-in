@@ -66,9 +66,18 @@ export class FacebookLoginService implements LoginService {
                     })),
                 tap({
                     complete: () => {
-                        this._appRef.tick(); // ngzone doesn't notices the change
+                        this._appRef.tick(); // ngZone doesn't notices the change
                     }
                 })
             );
+    }
+
+    loginWithUserDetails(): Observable<[LoginToken, UserDetails]> {
+        return this.login().pipe(
+            flatMap((loginToken) => this.userDetails(loginToken).pipe(
+                map((userDetails) => [loginToken, userDetails] as [LoginToken, UserDetails])
+              )
+            )
+          );
     }
 }

@@ -27,7 +27,8 @@ function mapBasicProfile(basicProfile: gapi.auth2.BasicProfile): UserDetails {
  */
 @Injectable()
 export class GoogleLoginService implements LoginService {
-    id = GOOGLE_LOGIN_SERVICE_ID;
+    static readonly ID = GOOGLE_LOGIN_SERVICE_ID;
+    readonly id = GOOGLE_LOGIN_SERVICE_ID;
     private _loginUser?: gapi.auth2.GoogleUser;
     private _userDetails?: UserDetails;
     private readonly _loginStatus = new BehaviorSubject(null) as BehaviorSubject<LoginToken | null>;
@@ -50,7 +51,7 @@ export class GoogleLoginService implements LoginService {
                 this._userDetails = mapBasicProfile(googleUser.getBasicProfile());
                 this._loginUser = googleUser;
                 return {
-                    id: googleUser.getId(),
+                    id: authResponse.id_token,
                     token: authResponse.access_token
                 };
             }),
@@ -73,5 +74,14 @@ export class GoogleLoginService implements LoginService {
 
     userDetails(token: LoginToken): Observable<UserDetails> {
         return this._userDetails ? from([this._userDetails]) : throwError(new Error("Not signed in"));
+    }
+
+    loginWithUserDetails(): Observable<[LoginToken, UserDetails]> {
+        return this.login().pipe(
+            map((loginToken) => {
+                if (!this._userDetails) throw new Error("internal error");
+                return [loginToken, this._userDetails] as [LoginToken, UserDetails];
+            })
+        );
     }
 }
