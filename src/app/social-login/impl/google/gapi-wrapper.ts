@@ -40,7 +40,7 @@ export class GapiWrapper {
     private _loadSdk(): Observable<Gapi> {
         loadPlatformScript(this._document);
         const sdkPromise: Promise<Gapi> = new Promise((resolve) => {
-            Object.assign(window, {GLOBAL_ASYNC_INIT_CALLBACK: () => {
+            Object.assign(window, {[GLOBAL_ASYNC_INIT_CALLBACK]: () => {
                 resolve(new Gapi(this._config));
             }});
         });

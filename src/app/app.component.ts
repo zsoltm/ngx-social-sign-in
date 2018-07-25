@@ -6,6 +6,7 @@ import { LoginService } from "./social-login/login-service";
 import { UserDetails } from "./social-login/user-details";
 import { flatMap, tap } from "rxjs/operators";
 import { LoginToken } from "./social-login/login-token";
+import { GoogleLoginService } from "./social-login/impl/google/google-login-service";
 
 @Component({
   selector: "app-root",
@@ -17,10 +18,12 @@ export class AppComponent implements OnInit {
   loginStatus: GlobalLoginStatus = {};
   fbLoginToken?: LoginToken;
   facebookUserDetails?: UserDetails;
+  googleUserDetails?: UserDetails;
 
   constructor(
       private readonly _loginService: SocialLoginService,
-      private readonly _fbLoginService: FacebookLoginService) {
+      private readonly _fbLoginService: FacebookLoginService,
+      private readonly _googleLoginService: GoogleLoginService) {
   }
 
   ngOnInit() {
@@ -46,6 +49,10 @@ export class AppComponent implements OnInit {
   }
 
   loginGoogle() {
-    console.log("login google");
+    this._googleLoginService.login().subscribe((token) => console.log("Google User Details: %o", token))
+  }
+
+  logoutGoogle() {
+    this._googleLoginService.logout().subscribe((resposne) => this.googleUserDetails = undefined);
   }
 }

@@ -6,7 +6,8 @@
   <button class="btn btn-social mr-2"
       (click)="loginFacebook()"
       [disabled]="loginStatus.facebook"><img src="assets/icons/facebook.svg" class="m-1" />Log in with Facebook</button>
-  <button class="btn btn-social mr-2"><img src="assets/icons/google-plus.svg" class="m-1" />Log in with Google Plus</button>
+  <button class="btn btn-social mr-2"
+      (click)="loginGoogle()"><img src="assets/icons/google-plus.svg" class="m-1" />Log in with Google Plus</button>
 
   <h2>Global Login Status</h2>
   <pre class="code" data-lang="JSON"><code>{{ loginStatus | json }}</code></pre>

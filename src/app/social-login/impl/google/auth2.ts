@@ -8,4 +8,8 @@ export class Auth2 {
     signIn(): Observable<gapi.auth2.GoogleUser> {
         return from(this._googleAuth.signIn());
     }
+
+    signOut(): Observable<any> {
+        return from(this._googleAuth.signOut());
+    }
 }

@@ -17,7 +17,8 @@ import { LoginServiceConfig } from "./social-login/login-service-config";
       provide: LoginServiceConfig,
       useValue: {
         services: {
-          facebook: { appId: "2118773085004035" }
+          facebook: { appId: "2118773085004035" },
+          google: { client_id: "503011657621-9edc5quaqj50oolivm4hdn2um8mh7diq.apps.googleusercontent.com" }
         }
       } as LoginServiceConfig
     }
