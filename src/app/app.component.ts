@@ -4,9 +4,10 @@ import { GlobalLoginStatus } from "./social-login/global-login-status";
 import { FacebookLoginService } from "./social-login/impl/facebook/facebook-login-service";
 import { LoginService } from "./social-login/login-service";
 import { UserDetails } from "./social-login/user-details";
-import { flatMap, tap } from "rxjs/operators";
+import { flatMap, map, tap } from "rxjs/operators";
 import { LoginToken } from "./social-login/login-token";
 import { GoogleLoginService } from "./social-login/impl/google/google-login-service";
+import { Observable, from } from "rxjs";
 
 @Component({
   selector: "app-root",
@@ -17,6 +18,7 @@ export class AppComponent implements OnInit {
   title = "Angular-Social-Login";
   loginStatus: GlobalLoginStatus = {};
   fbLoginToken?: LoginToken;
+  googleLoginToken?: LoginToken;
   facebookUserDetails?: UserDetails;
   googleUserDetails?: UserDetails;
 
@@ -33,26 +35,40 @@ export class AppComponent implements OnInit {
   }
 
   loginFacebook() {
-    this._fbLoginService.login() // .subscribe((token) => { this.fbLoginToken = token; });
-      .pipe(
-        tap((token) => { this.fbLoginToken = token; }),
-        flatMap((token) => this._fbLoginService.userDetails(token))
-      )
-      .subscribe((details) => {
-        console.log("Facebook User Details: %o", details);
-        this.facebookUserDetails = details;
+    this._loginWithService(this._fbLoginService).subscribe(([loginToken, userDetails]) => {
+      this.fbLoginToken = loginToken;
+      this.facebookUserDetails = userDetails;
       });
   }
 
   logoutFacebook() {
-    this._fbLoginService.logout().subscribe((response) => this.facebookUserDetails = undefined);
+    this._fbLoginService.logout().subscribe((response) => {
+      this.fbLoginToken = undefined;
+      this.facebookUserDetails = undefined;
+    });
   }
 
   loginGoogle() {
-    this._googleLoginService.login().subscribe((token) => console.log("Google User Details: %o", token))
+      this._loginWithService(this._googleLoginService).subscribe(([loginToken, userDetails]) => {
+        this.googleLoginToken = loginToken;
+        this.googleUserDetails = userDetails;
+      });
   }
 
   logoutGoogle() {
-    this._googleLoginService.logout().subscribe((resposne) => this.googleUserDetails = undefined);
+    this._googleLoginService.logout().subscribe((resposne) => {
+      console.log("logged out");
+      this.googleLoginToken = undefined;
+      this.googleUserDetails = undefined;
+    });
+  }
+
+  private _loginWithService(service: LoginService): Observable<[LoginToken, UserDetails]> {
+    return service.login().pipe(
+      flatMap((loginToken) =>service.userDetails(loginToken).pipe(
+          map((userDetails) => [loginToken, userDetails] as [LoginToken, UserDetails])
+        )
+      )
+    );
   }
 }
