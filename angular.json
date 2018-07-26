@@ -3,7 +3,7 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "angular-social-login": {
+    "angular-social-sign-in": {
       "root": "",
       "sourceRoot": "src",
       "projectType": "application",
@@ -13,7 +13,7 @@
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
-            "outputPath": "dist/angular-social-login",
+            "outputPath": "dist/angular-social-sign-in",
             "index": "src/index.html",
             "main": "src/main.ts",
             "polyfills": "src/polyfills.ts",
@@ -50,18 +50,18 @@
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
           "options": {
-            "browserTarget": "angular-social-login:build"
+            "browserTarget": "angular-social-sign-in:build"
           },
           "configurations": {
             "production": {
-              "browserTarget": "angular-social-login:build:production"
+              "browserTarget": "angular-social-sign-in:build:production"
             }
           }
         },
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "angular-social-login:build"
+            "browserTarget": "angular-social-sign-in:build"
           }
         },
         "test": {
@@ -95,7 +95,7 @@
         }
       }
     },
-    "angular-social-login-e2e": {
+    "angular-social-sign-in-e2e": {
       "root": "e2e/",
       "projectType": "application",
       "architect": {
@@ -103,11 +103,11 @@
           "builder": "@angular-devkit/build-angular:protractor",
           "options": {
             "protractorConfig": "e2e/protractor.conf.js",
-            "devServerTarget": "angular-social-login:serve"
+            "devServerTarget": "angular-social-sign-in:serve"
           },
           "configurations": {
             "production": {
-              "devServerTarget": "angular-social-login:serve:production"
+              "devServerTarget": "angular-social-sign-in:serve:production"
             }
           }
         },
@@ -121,7 +121,47 @@
           }
         }
       }
+    },
+    "social-sign-in": {
+      "root": "projects/social-sign-in",
+      "sourceRoot": "projects/social-sign-in/src",
+      "projectType": "library",
+      "prefix": "lib",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-ng-packagr:build",
+          "options": {
+            "tsConfig": "projects/social-sign-in/tsconfig.lib.json",
+            "project": "projects/social-sign-in/ng-package.json"
+          },
+          "configurations": {
+            "production": {
+              "project": "projects/social-sign-in/ng-package.prod.json"
+            }
+          }
+        },
+        "test": {
+          "builder": "@angular-devkit/build-angular:karma",
+          "options": {
+            "main": "projects/social-sign-in/src/test.ts",
+            "tsConfig": "projects/social-sign-in/tsconfig.spec.json",
+            "karmaConfig": "projects/social-sign-in/karma.conf.js"
+          }
+        },
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "projects/social-sign-in/tsconfig.lib.json",
+              "projects/social-sign-in/tsconfig.spec.json"
+            ],
+            "exclude": [
+              "**/node_modules/**"
+            ]
+          }
+        }
+      }
     }
   },
-  "defaultProject": "angular-social-login"
+  "defaultProject": "angular-social-sign-in"
 }

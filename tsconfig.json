@@ -16,6 +16,14 @@
     "lib": [
       "es2017",
       "dom"
-    ]
+    ],
+    "paths": {
+      "social-sign-in": [
+        "dist/social-sign-in"
+      ],
+      "social-sign-in/*": [
+        "dist/social-sign-in/*"
+      ]
+    }
   }
 }

@@ -1,5 +1,5 @@
-Angular-Social-Login
-====================
+Angular-Social-Sign-In
+======================
 
 Social login module for Angular that supports Facebook, Google and other providers.
 

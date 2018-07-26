@@ -20,7 +20,7 @@ interface LoginData {
   styleUrls: ["./app.component.scss"]
 })
 export class AppComponent implements OnInit {
-  title = "Angular-Social-Login";
+  title = "Angular-Social-Sign-In";
   loginStatus: GlobalLoginStatus = {};
 
   fbLoginToken?: LoginToken;
