@@ -18,10 +18,10 @@
       "dom"
     ],
     "paths": {
-      "ngx-social-sign-in": [
+      "@zsoltm/ngx-social-sign-in": [
         "dist/social-sign-in"
       ],
-      "ngx-social-sign-in/*": [
+      "@zsoltm/ngx-social-sign-in/*": [
         "dist/social-sign-in/*"
       ]
     }

@@ -1,7 +1,7 @@
 import { TestBed, async } from "@angular/core/testing";
 import { AppComponent } from "./app.component";
 import { UserDetailsComponent } from "./user-details.component";
-import { SocialSignInModule, SignInServiceConfig, } from "ngx-social-sign-in";
+import { SocialSignInModule, SignInServiceConfig, } from "@zsoltm/ngx-social-sign-in";
 
 describe("AppComponent", () => {
   beforeEach(async(() => {

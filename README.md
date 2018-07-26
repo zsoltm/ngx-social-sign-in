@@ -1,6 +1,9 @@
 ngx-Social-Sign-In
 ==================
 
+[![License: MIT](https://img.shields.io/badge/License-MIT-brightgreen.svg)](https://github.com/zsoltm/ngx-social-sign-in/blob/master/LICENSE)
+[![npm version](https://badge.fury.io/js/%40zsoltm%2Fngx-social-sign-in.svg)](https://www.npmjs.com/package/@zsoltm/ngx-social-sign-in)
+
 Social sing-in module for Angular that supports Facebook, Google and other providers in the near future.
 
 Check the [demo app][demo-app]!
@@ -32,13 +35,13 @@ First as usual add [`ngx-social-sign-in`][npm-page] to your project as a depende
 With NPM:
 
 ``` bash
-npm install --save "ngx-social-sign-in"
+npm install --save "@zsoltm/ngx-social-sign-in"
 ```
 
 or with yarn:
 
 ``` bash
-yarn add "ngx-social-sign-in"
+yarn add "@zsoltm/ngx-social-sign-in"
 ```
 
 Once you have the dependencies the main module has to be imported in your app's module, and you need to provide a configuration for
@@ -63,7 +66,7 @@ each 3rd party provider you want to use:
 Then in a component for example you could inject the main `SignInService` and subscribe to the status:
 
 ``` typescript
-import { SocialSignInService, GlobalSignInStatus } from "ngx-social-sign-in";
+import { SocialSignInService, GlobalSignInStatus } from "@zsoltm/ngx-social-sign-in";
 
 @Component({ /* ... */ })
 export class AppComponent implements OnInit, OnDestroy {
@@ -103,7 +106,7 @@ To initiate a sign-in with a particular provider just call `signIn()` on a `Sign
 from the main `SocialSignInService`:
 
 ``` typescript
-import { SocialSignInService, FacebookSignInService } from "social-sign-in";
+import { SocialSignInService, FacebookSignInService } from "@zsoltm/social-sign-in";
 
 @Component({ /* ... */ })
 export class AppComponent {
@@ -120,7 +123,7 @@ export class AppComponent {
 ... or the particular implementation can be also injected to the component, and can be used directly:
 
 ``` typescript
-import { FacebookSignInService } from "social-sign-in";
+import { FacebookSignInService } from "@zsoltm/social-sign-in";
 
 @Component({ /* ... */ })
 export class GoogleSignInComponent {

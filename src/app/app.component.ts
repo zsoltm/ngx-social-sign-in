@@ -1,6 +1,6 @@
 import { Component, OnInit, OnDestroy } from "@angular/core";
 import { SocialSignInService, GlobalSignInStatus, FacebookSignInService,
-  GoogleSignInService, UserDetails, SignInToken } from "ngx-social-sign-in";
+  GoogleSignInService, UserDetails, SignInToken } from "@zsoltm/ngx-social-sign-in";
 import { Subscription } from "rxjs";
 
 interface SignInData {

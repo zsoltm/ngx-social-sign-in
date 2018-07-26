@@ -2,7 +2,7 @@ import { BrowserModule } from "@angular/platform-browser";
 import { NgModule } from "@angular/core";
 
 import { AppComponent } from "./app.component";
-import { SocialSignInModule, SignInServiceConfig } from "ngx-social-sign-in";
+import { SocialSignInModule, SignInServiceConfig } from "@zsoltm/ngx-social-sign-in";
 import { UserDetailsComponent } from "./user-details.component";
 
 @NgModule({
