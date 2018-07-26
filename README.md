@@ -163,4 +163,4 @@ It's a monorepo; with an Angular test application, after unchecking run
     yarn start # launch the example application
 
 [yarn]: https://yarnpkg.com/
-[demo-app]: https://ngx-social-sign-in.github.com/testbed/
+[demo-app]: https://zsoltm.github.io/ngx-social-sign-in/testbed/

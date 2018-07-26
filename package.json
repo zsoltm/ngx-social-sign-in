@@ -10,7 +10,7 @@
     "ng": "ng",
     "start": "ng serve",
     "build": "ng build",
-    "build:prod": "ng build --prod --aot --delete-output-path --base-href=/testbed/ --deploy-url=/testbed/",
+    "build:prod": "ng build --prod --aot --delete-output-path --base-href=/ngx-social-sign-in/testbed/ --deploy-url=/ngx-social-sign-in/testbed/",
     "test": "ng test",
     "lint": "ng lint"
   },
