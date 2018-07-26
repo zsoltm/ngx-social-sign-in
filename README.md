@@ -10,7 +10,8 @@ Design gooals are
 + make it lazy, do not load the various 3rd API scripts until it's necessary;
 + make it possible to fetch user details in either server side or client side;
 + events for both provider specific and global sign-in status;
-+ clean API.
++ clean API;
++ use the 3rd party provided API whenever possible.
 
 Supported providers:
 
@@ -23,23 +24,24 @@ Planned support:
 + Github
 + Microsoft
 
-Configuration
--------------
-
-### Facebook
-
-Apart from the usual configuration make sure you configure URIs properly:
-
-1. Go to your facebook app console
-2. Go to Settings -> Basic. In Site URL type your url, even if localhost. For example: `http://localhost:4200`
-3. Go to Settings -> Advanced. In Valid OAuth redirect URIs type your url, even if localhost. For example: `http://localhost:4200`
-
-Otherwise you might experience weird issues, like redirects to the facebook home page.
-
 Usage
 -----
 
-First the main module has to be imported in your app's module, and you need to provide a configuration for 
+First as usual add [`angular-social-sign-in`][npm-page] to your project as a dependency.
+
+With NPM:
+
+``` bash
+npm install --save "angualr-social-sign-in"
+```
+
+or with yarn:
+
+``` bash
+yarn add "angualr-social-sign-in"
+```
+
+Once you have the dependencies the main module has to be imported in your app's module, and you need to provide a configuration for
 each 3rd party provider you want to use:
 
 ``` typescript
@@ -61,7 +63,7 @@ each 3rd party provider you want to use:
 Then in a component for example you could inject the main `SignInService` and subscribe to the status:
 
 ``` typescript
-import { SocialSignInService, GlobalSignInStatus } from "social-sign-in";
+import { SocialSignInService, GlobalSignInStatus } from "angular-social-sign-in";
 
 @Component({ /* ... */ })
 export class AppComponent implements OnInit, OnDestroy {
@@ -131,6 +133,19 @@ export class GoogleSignInComponent {
 ```
 
 Feel free to play around with the [demo application][demo-app] in the repo.
+
+Configuration
+-------------
+
+### Facebook
+
+Apart from the usual configuration make sure you configure URIs properly:
+
+1. Go to your facebook app console
+2. Go to Settings -> Basic. In Site URL type your url, even if localhost. For example: `http://localhost:4200`
+3. Go to Settings -> Advanced. In Valid OAuth redirect URIs type your url, even if localhost. For example: `http://localhost:4200`
+
+Otherwise you might experience weird issues, like redirects to the facebook home page.
 
 Development
 -----------
