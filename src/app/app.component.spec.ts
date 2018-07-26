@@ -15,7 +15,7 @@ describe("AppComponent", () => {
       providers: [{
         provide: SignInServiceConfig,
         useValue: {
-          services: {}
+          providers: {}
         }
       }]
     }).compileComponents();
