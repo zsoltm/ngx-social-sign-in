@@ -28,7 +28,7 @@ export class SocialLoginService {
 
         const configuredServices = Array.from(serviceConfigMap.entries())
             .map(([configToken, type]) => [injector.get(configToken, null), type])
-            .filter(([config, type]) => config)
+            .filter(([config, _]) => config)
             .map(([_, type]) => injector.get(type as Type<LoginService>));
 
         this._serviceMap = new Map(
@@ -37,10 +37,6 @@ export class SocialLoginService {
         configuredServices.forEach(service =>
                 service.loginStatus().subscribe(loginStatus =>
                         this._updateLoginStatus(service.id, loginStatus)));
-    }
-
-    loginStatus(): Observable<GlobalLoginStatus> {
-        return this._loginStatusSubject.asObservable();
     }
 
     impl(id: string): LoginService {
@@ -53,8 +49,8 @@ export class SocialLoginService {
         return this.impl(impl).login();
     }
 
-    userDetails(impl: string, loginToken: LoginToken): Observable<UserDetails> {
-        return this.impl(impl).userDetails(loginToken);
+    loginStatus(): Observable<GlobalLoginStatus> {
+        return this._loginStatusSubject.asObservable();
     }
 
     /** Convenience method that logs the user in and immediately fetches user details in on run. */
@@ -66,7 +62,11 @@ export class SocialLoginService {
         return this.impl(impl).logout();
     }
 
-    _updateLoginStatus(id: any, loginStatus: LoginToken | null) {
+    userDetails(impl: string, loginToken: LoginToken): Observable<UserDetails> {
+        return this.impl(impl).userDetails(loginToken);
+    }
+
+    private _updateLoginStatus(id: any, loginStatus: LoginToken | null) {
         this._loginStatus = Object.assign({}, this._loginStatus, {[id]: loginStatus});
         this._loginStatusSubject.next(this._loginStatus);
     }

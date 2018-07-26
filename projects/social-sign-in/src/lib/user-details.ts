@@ -1,10 +1,10 @@
 export interface UserDetails {
-    /** Display name. */
-    name: string;
-    /** ID of user on the remote platform. */
-    id: string;
     /** Email address of user. */
     email: string;
+    /** ID of user on the remote platform. */
+    id: string;
+    /** Display name. */
+    name: string;
     /** Profile picture URL. */
     picture: string;
 }

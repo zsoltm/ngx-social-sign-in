@@ -14,17 +14,13 @@ export class FacebookLoginService implements LoginService {
     static readonly ID = "facebook";
     readonly id = FacebookLoginService.ID;
 
-    private readonly _sdkWrapper: FacebookSdkWrapper;
     private readonly _loginStatus = new BehaviorSubject(null) as BehaviorSubject<LoginToken | null>;
+    private readonly _sdkWrapper: FacebookSdkWrapper;
 
     constructor(@Inject(DOCUMENT) document: any /* Document */, @Inject(FACEBOOK_CONFIG) _config: FacebookConfig,
         private readonly _appRef: ApplicationRef
     ) {
         this._sdkWrapper = new FacebookSdkWrapper(_config, document);
-    }
-
-    loginStatus(): Observable<LoginToken | null> {
-        return this._loginStatus;
     }
 
     login(): Observable<LoginToken> {
@@ -38,6 +34,19 @@ export class FacebookLoginService implements LoginService {
             )),
             tap((loginToken) => this._loginStatus.next(loginToken))
         );
+    }
+
+    loginStatus(): Observable<LoginToken | null> {
+        return this._loginStatus;
+    }
+
+    loginWithUserDetails(): Observable<[LoginToken, UserDetails]> {
+        return this.login().pipe(
+            flatMap((loginToken) => this.userDetails(loginToken).pipe(
+                map((userDetails) => [loginToken, userDetails] as [LoginToken, UserDetails])
+              )
+            )
+          );
     }
 
     logout(): Observable<boolean> {
@@ -70,14 +79,5 @@ export class FacebookLoginService implements LoginService {
                     }
                 })
             );
-    }
-
-    loginWithUserDetails(): Observable<[LoginToken, UserDetails]> {
-        return this.login().pipe(
-            flatMap((loginToken) => this.userDetails(loginToken).pipe(
-                map((userDetails) => [loginToken, userDetails] as [LoginToken, UserDetails])
-              )
-            )
-          );
     }
 }

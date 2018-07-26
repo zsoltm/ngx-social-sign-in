@@ -6,10 +6,10 @@ import { UserDetails, LoginToken } from "social-sign-in";
     templateUrl: "./user-details.component.html"
 })
 export class UserDetailsComponent {
-    @Input() title?: string;
     @Input() loginToken?: LoginToken;
-    @Input() userDetails?: UserDetails;
     @Output() logout: EventEmitter<any> = new EventEmitter();
+    @Input() title?: string;
+    @Input() userDetails?: UserDetails;
 
     emitLogout() {
         this.logout.emit(true);

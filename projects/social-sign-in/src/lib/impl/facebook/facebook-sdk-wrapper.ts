@@ -28,9 +28,9 @@ const loadFacebookSdkScript = (document: Document, url: string) => {
 };
 
 export class FacebookSdkWrapper {
-    private readonly _url: string;
     private readonly _initParams: fb.InitParams;
     private _sdk?: Observable<FacebookSdk>;
+    private readonly _url: string;
 
     constructor(
         private readonly _config: FacebookConfig,

@@ -29,19 +29,16 @@ function mapBasicProfile(basicProfile: gapi.auth2.BasicProfile): UserDetails {
 export class GoogleLoginService implements LoginService {
     static readonly ID = GOOGLE_LOGIN_SERVICE_ID;
     readonly id = GOOGLE_LOGIN_SERVICE_ID;
+
+    private readonly _loginStatus = new BehaviorSubject(null) as BehaviorSubject<LoginToken | null>;
     private _loginUser?: gapi.auth2.GoogleUser;
     private _userDetails?: UserDetails;
-    private readonly _loginStatus = new BehaviorSubject(null) as BehaviorSubject<LoginToken | null>;
 
     constructor(
         private readonly _appref: ApplicationRef,
         private readonly _gapiWrapper: GapiWrapper,
         @Inject(GOOGLE_CONFIG) private readonly _config: GoogleConfig,
     ) {}
-
-    loginStatus(): Observable<LoginToken | null> {
-        return this._loginStatus;
-    }
 
     login(): Observable<LoginToken> {
         return this._gapiWrapper.gapi_auth2.pipe(
@@ -56,6 +53,19 @@ export class GoogleLoginService implements LoginService {
                 };
             }),
             tap((loginToken) => this._loginStatus.next(loginToken))
+        );
+    }
+
+    loginStatus(): Observable<LoginToken | null> {
+        return this._loginStatus;
+    }
+
+    loginWithUserDetails(): Observable<[LoginToken, UserDetails]> {
+        return this.login().pipe(
+            map((loginToken) => {
+                if (!this._userDetails) throw new Error("internal error");
+                return [loginToken, this._userDetails] as [LoginToken, UserDetails];
+            })
         );
     }
 
@@ -74,14 +84,5 @@ export class GoogleLoginService implements LoginService {
 
     userDetails(token: LoginToken): Observable<UserDetails> {
         return this._userDetails ? from([this._userDetails]) : throwError(new Error("Not signed in"));
-    }
-
-    loginWithUserDetails(): Observable<[LoginToken, UserDetails]> {
-        return this.login().pipe(
-            map((loginToken) => {
-                if (!this._userDetails) throw new Error("internal error");
-                return [loginToken, this._userDetails] as [LoginToken, UserDetails];
-            })
-        );
     }
 }

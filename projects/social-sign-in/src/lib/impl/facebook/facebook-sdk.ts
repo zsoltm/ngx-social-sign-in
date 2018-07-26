@@ -20,18 +20,18 @@ export class FacebookSdk {
         });
     }
 
+    logout(): Observable<any> {
+        return from(new Promise((resolve) => {
+            FB.logout((response) => resolve(response.status === "unknown"));
+        }));
+    }
+
     userDetails(token: LoginToken): Observable<ApiUserDetailsResponse> {
         return from(new Promise((resolve) => {
             FB.api(token.id, "GET", {fields: ["email", "name", "picture.type(large).redirect(0)"]},
                     (response: ApiUserDetailsResponse) => {
                         resolve(response);
                     });
-        }));
-    }
-
-    logout(): Observable<any> {
-        return from(new Promise((resolve) => {
-            FB.logout((response) => resolve(response.status === "unknown"));
         }));
     }
 }

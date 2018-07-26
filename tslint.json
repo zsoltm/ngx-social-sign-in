@@ -34,10 +34,15 @@
       {
         "order": [
           "static-field",
-          "instance-field",
+          "public-instance-field",
+          "protected-instance-field",
+          "private-instance-field",
           "static-method",
-          "instance-method"
-        ]
+          "public-instance-method",
+          "protected-instance-method",
+          "private-instance-method"
+        ],
+        "alphabetize": true
       }
     ],
     "no-arg": true,
