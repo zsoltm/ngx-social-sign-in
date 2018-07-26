@@ -1,10 +1,6 @@
 import { Component, OnInit } from "@angular/core";
-import { SocialLoginService } from "./social-login/social-login.service";
-import { GlobalLoginStatus } from "./social-login/global-login-status";
-import { FacebookLoginService } from "./social-login/impl/facebook/facebook-login-service";
-import { UserDetails } from "./social-login/user-details";
-import { LoginToken } from "./social-login/login-token";
-import { GoogleLoginService } from "./social-login/impl/google/google-login-service";
+import { SocialLoginService, GlobalLoginStatus, FacebookLoginService,
+  GoogleLoginService, UserDetails, LoginToken } from "social-sign-in";
 
 interface LoginData {
   title: string;

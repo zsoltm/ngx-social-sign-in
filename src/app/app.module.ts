@@ -2,8 +2,7 @@ import { BrowserModule } from "@angular/platform-browser";
 import { NgModule } from "@angular/core";
 
 import { AppComponent } from "./app.component";
-import { SocialLoginModule } from "./social-login/social-login.module";
-import { LoginServiceConfig } from "./social-login/login-service-config";
+import { SocialLoginModule, LoginServiceConfig } from "social-sign-in";
 import { UserDetailsComponent } from "./user-details.component";
 
 @NgModule({

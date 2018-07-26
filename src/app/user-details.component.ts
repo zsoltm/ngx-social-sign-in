@@ -1,6 +1,5 @@
 import { Component, Input, Output, EventEmitter } from "@angular/core";
-import { LoginToken } from "./social-login/login-token";
-import { UserDetails } from "./social-login/user-details";
+import { UserDetails, LoginToken } from "social-sign-in";
 
 @Component({
     selector: "app-user-details",
