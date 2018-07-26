@@ -19,9 +19,9 @@ const serviceConfigMap: Map<InjectionToken<any>, Type<SignInService>> = new Map(
     providedIn: "root"
 })
 export class SocialSignInService {
+    private readonly _serviceMap: Map<string, SignInService>;
     private _signInStatus: GlobalSignInStatus = {};
     private readonly _signInStatusSubject: Subject<GlobalSignInStatus> = new BehaviorSubject(this._signInStatus);
-    private readonly _serviceMap: Map<string, SignInService>;
 
     constructor(@Optional() private readonly _config: SignInServiceConfig, injector: Injector) {
         if (!this._config) throw new Error("Please specify a provider for SignInServiceConfig()");
