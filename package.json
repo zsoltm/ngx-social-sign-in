@@ -12,8 +12,7 @@
     "build": "ng build",
     "build:prod": "ng build --prod --aot --delete-output-path --base-href=/testbed/ --deploy-url=/testbed/",
     "test": "ng test",
-    "lint": "ng lint",
-    "e2e": "ng e2e"
+    "lint": "ng lint"
   },
   "dependencies": {
     "@angular/animations": "^6.1.0",
