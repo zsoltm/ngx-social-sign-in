@@ -26,6 +26,16 @@ export class AppComponent implements OnInit, OnDestroy {
   constructor(
       private readonly _signInService: SocialSignInService) {}
 
+  ngOnDestroy() {
+    if (this._signInStatus) this._signInStatus.unsubscribe();
+  }
+
+  ngOnInit() {
+    this._signInStatus = this._signInService.signInStatus().subscribe((status) => {
+      this.signInStatus = status;
+    });
+  }
+
   get signInValues() {
     return Array.from(this._signIns.values());
   }
@@ -38,16 +48,6 @@ export class AppComponent implements OnInit, OnDestroy {
     this._signIn(GoogleSignInService.ID, "Google", "#34a853", "google.svg");
   }
 
-  ngOnInit() {
-    this._signInStatus = this._signInService.signInStatus().subscribe((status) => {
-      this.signInStatus = status;
-    });
-  }
-
-  ngOnDestroy() {
-    if (this._signInStatus) this._signInStatus.unsubscribe();
-  }
-
   private _signIn(impl: string, title: string, color: string, logo: string) {
     this._signInService.signInWithUserDetails(impl).subscribe(([signInToken, userDetails]) => {
       this._signIns.set(impl, {
@@ -55,12 +55,12 @@ export class AppComponent implements OnInit, OnDestroy {
         color: color,
         userDetails: userDetails,
         signInToken: signInToken,
-        signOut: () => this._logout(impl)
+        signOut: () => this._signOut(impl)
       });
     });
   }
 
-  private _logout(impl: string) {
+  private _signOut(impl: string) {
     this._signInService.signOut(impl).subscribe((resposne) => {
       console.log("Logged out from", impl);
       this._signIns.delete(impl);

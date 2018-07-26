@@ -46,7 +46,7 @@ each 3rd party provider you want to use:
 @NgModule({
     imports: [ SocialSignInModule /* , ... */ ], // import module
     providers: [{
-      provide: LoginServiceConfig,
+      provide: SignInServiceConfig,
       useValue: {
         providers: {
           facebook: { appId: "... your app id ..." },
