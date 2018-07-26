@@ -1,21 +1,18 @@
-import { Component, OnInit, ChangeDetectorRef, ChangeDetectionStrategy } from "@angular/core";
+import { Component, OnInit } from "@angular/core";
 import { SocialLoginService } from "./social-login/social-login.service";
 import { GlobalLoginStatus } from "./social-login/global-login-status";
 import { FacebookLoginService } from "./social-login/impl/facebook/facebook-login-service";
-import { LoginService } from "./social-login/login-service";
 import { UserDetails } from "./social-login/user-details";
-import { flatMap, map } from "rxjs/operators";
 import { LoginToken } from "./social-login/login-token";
 import { GoogleLoginService } from "./social-login/impl/google/google-login-service";
-import { Observable } from "rxjs";
 
-type loginData = {
-  title: string,
-  color: string,
-  userDetails: UserDetails,
-  loginToken: LoginToken,
-  logout: () => any
-};
+interface LoginData {
+  title: string;
+  color: string;
+  userDetails: UserDetails;
+  loginToken: LoginToken;
+  logout: () => any;
+}
 
 @Component({
   selector: "app-root",
@@ -26,12 +23,12 @@ export class AppComponent implements OnInit {
   title = "Angular-Social-Login";
   loginStatus: GlobalLoginStatus = {};
 
-  private readonly _logins: Map<string, loginData> = new Map();
-
   fbLoginToken?: LoginToken;
   googleLoginToken?: LoginToken;
   facebookUserDetails?: UserDetails;
   googleUserDetails?: UserDetails;
+
+  private readonly _logins: Map<string, LoginData> = new Map();
 
   constructor(
       private readonly _loginService: SocialLoginService) {}
@@ -52,8 +49,8 @@ export class AppComponent implements OnInit {
         title: title,
         color: color,
         userDetails: userDetails,
-        loginToken: loginToken, 
-        logout: () => this._logout(impl)     
+        loginToken: loginToken,
+        logout: () => this._logout(impl)
       });
     });
   }

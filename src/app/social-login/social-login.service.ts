@@ -27,7 +27,7 @@ export class SocialLoginService {
         const configuredServices = Array.from(serviceConfigMap.entries())
             .map(([configToken, type]) => [injector.get(configToken, null), type])
             .filter(([config, type]) => config)
-            .map(([_config, type]) => injector.get(type) as LoginService);
+            .map(([_, type]) => injector.get(type as Type<LoginService>));
 
         this._serviceMap = new Map(
             configuredServices.map((service) =>

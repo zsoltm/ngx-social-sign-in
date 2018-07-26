@@ -22,7 +22,7 @@ function mapBasicProfile(basicProfile: gapi.auth2.BasicProfile): UserDetails {
 
 /**
  * Google Authentication Service
- * 
+ *
  * Official documentation: https://developers.google.com/identity/sign-in/web/reference
  */
 @Injectable()
@@ -69,7 +69,7 @@ export class GoogleLoginService implements LoginService {
                 this._loginStatus.next(null);
                 this._appref.tick();
             }})
-        )
+        );
     }
 
     userDetails(token: LoginToken): Observable<UserDetails> {
