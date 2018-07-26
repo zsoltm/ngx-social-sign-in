@@ -15,7 +15,9 @@ const serviceConfigMap: Map<InjectionToken<any>, Type<LoginService>> = new Map([
     [FACEBOOK_CONFIG, FacebookLoginService as Type<LoginService>]
 ]);
 
-@Injectable()
+@Injectable({
+    providedIn: "root"
+})
 export class SocialLoginService {
     private _loginStatus: GlobalLoginStatus = {};
     private readonly _loginStatusSubject: Subject<GlobalLoginStatus> = new BehaviorSubject(this._loginStatus);

@@ -4,9 +4,9 @@ import { SocialLoginService } from "./social-login.service";
 import { LoginServiceConfig } from "./login-service-config";
 import { FacebookLoginService } from "./impl/facebook/facebook-login-service";
 import { GapiWrapper } from "./impl/google/gapi-wrapper";
-import { GOOGLE_CONFIG } from "./impl/google/google-config";
+import { GOOGLE_CONFIG, googleConfigFactory } from "./impl/google/google-config";
 import { GoogleLoginService } from "./impl/google/google-login-service";
-import { FACEBOOK_CONFIG } from "./impl/facebook/facebook-config";
+import { FACEBOOK_CONFIG, facebookConfigFactory } from "./impl/facebook/facebook-config";
 
 @NgModule({
   imports: [
@@ -17,12 +17,12 @@ import { FACEBOOK_CONFIG } from "./impl/facebook/facebook-config";
     SocialLoginService,
     {
       provide: GOOGLE_CONFIG,
-      useFactory: (config: LoginServiceConfig) => config.services.google,
+      useFactory: googleConfigFactory,
       deps: [LoginServiceConfig]
     },
     {
       provide: FACEBOOK_CONFIG,
-      useFactory: (config: LoginServiceConfig) => config.services.facebook,
+      useFactory: facebookConfigFactory,
       deps: [LoginServiceConfig]
     },
     GapiWrapper,

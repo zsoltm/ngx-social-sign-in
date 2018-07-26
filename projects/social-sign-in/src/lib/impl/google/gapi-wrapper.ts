@@ -26,7 +26,7 @@ export class GapiWrapper {
     private _gapi$?: Observable<Gapi>;
 
     constructor(
-        @Inject(DOCUMENT) private readonly _document: Document,
+        @Inject(DOCUMENT) private readonly _document: any /* Document */,
         @Inject(GOOGLE_CONFIG) private readonly _config: GoogleConfig) {}
 
     get gapi(): Observable<Gapi> {

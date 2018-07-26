@@ -34,7 +34,7 @@ export class FacebookSdkWrapper {
 
     constructor(
         private readonly _config: FacebookConfig,
-        private readonly _document: Document
+        private readonly _document: any /* Document */
     ) {
         this._url =
             `https://connect.facebook.net/${_config.language || "en_US"}/${_config.debug ? "sdk/debug.js" : "sdk.js"}`;
