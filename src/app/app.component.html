@@ -5,26 +5,26 @@
 
   <div class="login-buttons d-flex">
     <button class="btn btn-social"
-        (click)="loginFacebook()"
-        [disabled]="loginStatus.facebook"><img src="assets/icons/facebook.svg" class="m-1" />Log in with Facebook</button>
+        (click)="signInFacebook()"
+        [disabled]="signInStatus.facebook"><img src="assets/icons/facebook.svg" class="m-1" />Sign-in in with Facebook</button>
     <button class="btn btn-social"
-        (click)="loginGoogle()"
-        [disabled]="loginStatus.google"><img src="assets/icons/google.svg" class="m-1" />Log in with Google</button>
+        (click)="signInGoogle()"
+        [disabled]="signInStatus.google"><img src="assets/icons/google.svg" class="m-1" />Sing-in with Google</button>
     </div>
 
   <h2>Global Login Status</h2>
-  <pre class="code" data-lang="JSON"><code>{{ loginStatus | json }}</code></pre>
+  <pre class="code" data-lang="JSON"><code>{{ signInStatus | json }}</code></pre>
 
   <h2>Individual Logins</h2>
   <div class="columns">
-      <div *ngFor="let login of loginValues" class="column col-4 col-md-6 col-xs-12">
+      <div *ngFor="let signIn of signInValues" class="column col-4 col-md-6 col-xs-12">
         <app-user-details
-            [title]="login.title"
-            [userDetails]="login.userDetails"
-            (logout)="login.logout()"
-            [loginToken]="login.loginToken"></app-user-details>
+            [title]="signIn.title"
+            [userDetails]="signIn.userDetails"
+            (signOut)="signIn.signOut()"
+            [signInToken]="signIn.signInToken"></app-user-details>
       </div>
-      <div *ngIf="!loginValues.length" class="column">
+      <div *ngIf="!signInValues.length" class="column">
           Please log in with at least one of the login providers.
       </div>
   </div>

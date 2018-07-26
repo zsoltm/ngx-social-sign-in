@@ -2,7 +2,7 @@
 
 import { Observable, Observer, from } from "rxjs";
 import { ApiUserDetailsResponse } from "./api-user-details-response";
-import { LoginToken } from "../../login-token";
+import { SignInToken } from "../../login-token";
 
 const CONNECTED_STATUS_RESPONSE = "connected";
 
@@ -26,7 +26,7 @@ export class FacebookSdk {
         }));
     }
 
-    userDetails(token: LoginToken): Observable<ApiUserDetailsResponse> {
+    userDetails(token: SignInToken): Observable<ApiUserDetailsResponse> {
         return from(new Promise((resolve) => {
             FB.api(token.id, "GET", {fields: ["email", "name", "picture.type(large).redirect(0)"]},
                     (response: ApiUserDetailsResponse) => {

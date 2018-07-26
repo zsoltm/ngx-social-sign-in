@@ -1,12 +1,12 @@
 import { Observable } from "rxjs";
-import { LoginToken } from "./login-token";
+import { SignInToken } from "./login-token";
 import { UserDetails } from "./user-details";
 
-export interface LoginService {
+export interface SignInService {
     id: string;
-    login(): Observable<LoginToken>;
-    loginStatus(): Observable<LoginToken | null>;
-    loginWithUserDetails(): Observable<[LoginToken, UserDetails]>;
-    logout(): Observable<boolean>;
-    userDetails(token: LoginToken): Observable<UserDetails>;
+    signIn(): Observable<SignInToken>;
+    signInStatus(): Observable<SignInToken | null>;
+    signInWithUserDetails(): Observable<[SignInToken, UserDetails]>;
+    signOut(): Observable<boolean>;
+    userDetails(token: SignInToken): Observable<UserDetails>;
 }

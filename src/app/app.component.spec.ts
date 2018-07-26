@@ -1,8 +1,7 @@
 import { TestBed, async } from "@angular/core/testing";
 import { AppComponent } from "./app.component";
 import { UserDetailsComponent } from "./user-details.component";
-import { LoginServiceConfig } from "./social-login/login-service-config";
-import { SocialLoginModule } from "./social-login/social-login.module";
+import { SocialSignInModule, SignInServiceConfig, } from "social-sign-in/social-sign-in";
 
 describe("AppComponent", () => {
   beforeEach(async(() => {
@@ -11,10 +10,10 @@ describe("AppComponent", () => {
         AppComponent, UserDetailsComponent
       ],
       imports: [
-        SocialLoginModule
+        SocialSignInModule
       ],
       providers: [{
-        provide: LoginServiceConfig,
+        provide: SignInServiceConfig,
         useValue: {
           services: {}
         }

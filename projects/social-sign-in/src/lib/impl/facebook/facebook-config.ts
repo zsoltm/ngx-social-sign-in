@@ -1,5 +1,5 @@
 import { InjectionToken } from "@angular/core";
-import { LoginServiceConfig } from "../../login-service-config";
+import { SignInServiceConfig } from "../../login-service-config";
 
 export interface FacebookConfig {
     /** Your application ID. If you don't have one find it in the App dashboard
@@ -20,6 +20,6 @@ export interface FacebookConfig {
 
 export const FACEBOOK_CONFIG = new InjectionToken("GOOGLE_CONFIG");
 
-export function facebookConfigFactory(config: LoginServiceConfig) {
-    return config.services.facebook;
+export function facebookConfigFactory(config: SignInServiceConfig) {
+    return config.providers.facebook;
 }

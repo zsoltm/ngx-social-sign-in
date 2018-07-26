@@ -1,5 +1,6 @@
-import { LoginToken } from "./login-token";
+import { SignInToken } from "./login-token";
 
-export interface GlobalLoginStatus {
-    facebook?: LoginToken;
+export interface GlobalSignInStatus {
+    facebook?: SignInToken;
+    google?: SignInToken;
 }

@@ -1,11 +1,12 @@
-import { Component, OnInit } from "@angular/core";
-import { SocialLoginService, GlobalLoginStatus, FacebookLoginService,
-  GoogleLoginService, UserDetails, LoginToken } from "social-sign-in";
+import { Component, OnInit, OnDestroy } from "@angular/core";
+import { SocialSignInService, GlobalSignInStatus, FacebookSignInService,
+  GoogleSignInService, UserDetails, SignInToken } from "social-sign-in";
+import { Subscription } from "rxjs";
 
-interface LoginData {
+interface SignInData {
   color: string;
-  loginToken: LoginToken;
-  logout: () => any;
+  signInToken: SignInToken;
+  signOut: () => any;
   title: string;
   userDetails: UserDetails;
 }
@@ -15,53 +16,54 @@ interface LoginData {
   styleUrls: ["./app.component.scss"],
   templateUrl: "./app.component.html"
 })
-export class AppComponent implements OnInit {
-  facebookUserDetails?: UserDetails;
-  fbLoginToken?: LoginToken;
-  googleLoginToken?: LoginToken;
-  googleUserDetails?: UserDetails;
-  loginStatus: GlobalLoginStatus = {};
+export class AppComponent implements OnInit, OnDestroy {
+  signInStatus: GlobalSignInStatus = {};
   title = "Angular-Social-Sign-In";
 
-  private readonly _logins: Map<string, LoginData> = new Map();
+  private readonly _signIns: Map<string, SignInData> = new Map();
+  private _signInStatus?: Subscription;
 
   constructor(
-      private readonly _loginService: SocialLoginService) {}
+      private readonly _signInService: SocialSignInService) {}
 
-  get loginValues() {
-    return Array.from(this._logins.values());
+  get signInValues() {
+    return Array.from(this._signIns.values());
   }
 
-  loginFacebook() {
-    this._login(FacebookLoginService.ID, "Facebook", "#3b5998", "facebook.svg");
+  signInFacebook() {
+    this._signIn(FacebookSignInService.ID, "Facebook", "#3b5998", "facebook.svg");
   }
 
-  loginGoogle() {
-    this._login(GoogleLoginService.ID, "Google", "#34a853", "google.svg");
+  signInGoogle() {
+    this._signIn(GoogleSignInService.ID, "Google", "#34a853", "google.svg");
   }
 
   ngOnInit() {
-    this._loginService.loginStatus().subscribe((status) => {
-      this.loginStatus = status;
+    this._signInStatus = this._signInService.signInStatus().subscribe((status) => {
+      this.signInStatus = status;
     });
   }
 
-  private _login(impl: string, title: string, color: string, logo: string) {
-    this._loginService.loginWithUserDetails(impl).subscribe(([loginToken, userDetails]) => {
-      this._logins.set(impl, {
+  ngOnDestroy() {
+    if (this._signInStatus) this._signInStatus.unsubscribe();
+  }
+
+  private _signIn(impl: string, title: string, color: string, logo: string) {
+    this._signInService.signInWithUserDetails(impl).subscribe(([signInToken, userDetails]) => {
+      this._signIns.set(impl, {
         title: title,
         color: color,
         userDetails: userDetails,
-        loginToken: loginToken,
-        logout: () => this._logout(impl)
+        signInToken: signInToken,
+        signOut: () => this._logout(impl)
       });
     });
   }
 
   private _logout(impl: string) {
-    this._loginService.logout(impl).subscribe((resposne) => {
-      console.log("logged out from", impl);
-      this._logins.delete(impl);
+    this._signInService.signOut(impl).subscribe((resposne) => {
+      console.log("Logged out from", impl);
+      this._signIns.delete(impl);
     });
   }
 }

@@ -1,8 +1,8 @@
 /// <reference types="gapi.auth2"/>
 
-import { LoginService } from "../../login-service";
+import { SignInService } from "../../login-service";
 import { Observable, BehaviorSubject, from, throwError } from "rxjs";
-import { LoginToken } from "../../login-token";
+import { SignInToken } from "../../login-token";
 import { GapiWrapper } from "./gapi-wrapper";
 import { flatMap, map, tap } from "rxjs/operators";
 import { Injectable, Inject, InjectionToken, ApplicationRef } from "@angular/core";
@@ -26,11 +26,11 @@ function mapBasicProfile(basicProfile: gapi.auth2.BasicProfile): UserDetails {
  * Official documentation: https://developers.google.com/identity/sign-in/web/reference
  */
 @Injectable()
-export class GoogleLoginService implements LoginService {
+export class GoogleSignInService implements SignInService {
     static readonly ID = GOOGLE_LOGIN_SERVICE_ID;
     readonly id = GOOGLE_LOGIN_SERVICE_ID;
 
-    private readonly _loginStatus = new BehaviorSubject(null) as BehaviorSubject<LoginToken | null>;
+    private readonly _loginStatus = new BehaviorSubject(null) as BehaviorSubject<SignInToken | null>;
     private _loginUser?: gapi.auth2.GoogleUser;
     private _userDetails?: UserDetails;
 
@@ -40,7 +40,7 @@ export class GoogleLoginService implements LoginService {
         @Inject(GOOGLE_CONFIG) private readonly _config: GoogleConfig,
     ) {}
 
-    login(): Observable<LoginToken> {
+    signIn(): Observable<SignInToken> {
         return this._gapiWrapper.gapi_auth2.pipe(
             flatMap((auth2) => auth2.signIn()),
             map((googleUser) => {
@@ -56,20 +56,20 @@ export class GoogleLoginService implements LoginService {
         );
     }
 
-    loginStatus(): Observable<LoginToken | null> {
+    signInStatus(): Observable<SignInToken | null> {
         return this._loginStatus;
     }
 
-    loginWithUserDetails(): Observable<[LoginToken, UserDetails]> {
-        return this.login().pipe(
+    signInWithUserDetails(): Observable<[SignInToken, UserDetails]> {
+        return this.signIn().pipe(
             map((loginToken) => {
                 if (!this._userDetails) throw new Error("internal error");
-                return [loginToken, this._userDetails] as [LoginToken, UserDetails];
+                return [loginToken, this._userDetails] as [SignInToken, UserDetails];
             })
         );
     }
 
-    logout(): Observable<boolean> {
+    signOut(): Observable<boolean> {
         return this._gapiWrapper.gapi_auth2.pipe(
             flatMap((auth2) => auth2.signOut()),
             map((signoutResponse) => true),
@@ -82,7 +82,7 @@ export class GoogleLoginService implements LoginService {
         );
     }
 
-    userDetails(token: LoginToken): Observable<UserDetails> {
+    userDetails(token: SignInToken): Observable<UserDetails> {
         return this._userDetails ? from([this._userDetails]) : throwError(new Error("Not signed in"));
     }
 }

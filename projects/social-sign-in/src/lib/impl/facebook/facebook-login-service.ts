@@ -1,20 +1,20 @@
 import { ApplicationRef, Injectable, Inject } from "@angular/core";
 import { DOCUMENT } from "@angular/common";
 import { FacebookConfig, FACEBOOK_CONFIG } from "./facebook-config";
-import { LoginService } from "../../login-service";
+import { SignInService } from "../../login-service";
 import { Observable, BehaviorSubject } from "rxjs";
 import { map, tap, flatMap } from "rxjs/operators";
-import { LoginToken } from "../../login-token";
+import { SignInToken } from "../../login-token";
 import { FacebookSdkWrapper } from "./facebook-sdk-wrapper";
 import { UserDetails } from "../../user-details";
 import { ApiUserDetailsResponse } from "./api-user-details-response";
 
 @Injectable()
-export class FacebookLoginService implements LoginService {
+export class FacebookSignInService implements SignInService {
     static readonly ID = "facebook";
-    readonly id = FacebookLoginService.ID;
+    readonly id = FacebookSignInService.ID;
 
-    private readonly _loginStatus = new BehaviorSubject(null) as BehaviorSubject<LoginToken | null>;
+    private readonly _loginStatus = new BehaviorSubject(null) as BehaviorSubject<SignInToken | null>;
     private readonly _sdkWrapper: FacebookSdkWrapper;
 
     constructor(@Inject(DOCUMENT) document: any /* Document */, @Inject(FACEBOOK_CONFIG) _config: FacebookConfig,
@@ -23,7 +23,7 @@ export class FacebookLoginService implements LoginService {
         this._sdkWrapper = new FacebookSdkWrapper(_config, document);
     }
 
-    login(): Observable<LoginToken> {
+    signIn(): Observable<SignInToken> {
         return this._sdkWrapper.sdk.pipe(
             flatMap((sdk) => sdk.login({scope: "public_profile,email"})),
             map((authResponse: fb.AuthResponse) => (
@@ -36,20 +36,20 @@ export class FacebookLoginService implements LoginService {
         );
     }
 
-    loginStatus(): Observable<LoginToken | null> {
+    signInStatus(): Observable<SignInToken | null> {
         return this._loginStatus;
     }
 
-    loginWithUserDetails(): Observable<[LoginToken, UserDetails]> {
-        return this.login().pipe(
+    signInWithUserDetails(): Observable<[SignInToken, UserDetails]> {
+        return this.signIn().pipe(
             flatMap((loginToken) => this.userDetails(loginToken).pipe(
-                map((userDetails) => [loginToken, userDetails] as [LoginToken, UserDetails])
+                map((userDetails) => [loginToken, userDetails] as [SignInToken, UserDetails])
               )
             )
           );
     }
 
-    logout(): Observable<boolean> {
+    signOut(): Observable<boolean> {
         return this._sdkWrapper.sdk
             .pipe(
                 flatMap((sdk) => sdk.logout()),
@@ -62,7 +62,7 @@ export class FacebookLoginService implements LoginService {
             );
     }
 
-    userDetails(token: LoginToken): Observable<UserDetails> {
+    userDetails(token: SignInToken): Observable<UserDetails> {
         return this._sdkWrapper.sdk
             .pipe(
                 flatMap((sdk) => sdk.userDetails(token)),
