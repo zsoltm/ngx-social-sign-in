@@ -1,5 +1,5 @@
 {
-  "name": "angular-social-sign-in",
+  "name": "angular-social-sign-in-demo",
   "version": "1.0.0",
   "description": "Social sign-in module for Angular that supports Facebook, Google and other providers in the near future.",
   "repository": "https://github.com/zsoltm/angular-social-plugin.git",

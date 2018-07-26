@@ -1,5 +1,5 @@
 import { Component, Input, Output, EventEmitter } from "@angular/core";
-import { UserDetails, SignInToken } from "social-sign-in";
+import { UserDetails, SignInToken } from "ngx-social-sign-in";
 
 @Component({
     selector: "app-user-details",
@@ -9,9 +9,18 @@ export class UserDetailsComponent {
     @Input() signInToken?: SignInToken;
     @Output() signOut: EventEmitter<any> = new EventEmitter();
     @Input() title?: string;
-    @Input() userDetails?: UserDetails;
+    @Input() set userDetails(userDetails: UserDetails) {
+        this._userDetails = userDetails;
+    }
+
+    private _userDetails?: UserDetails;
 
     emitSignOut() {
         this.signOut.emit(true);
+    }
+
+    get userDetails(): UserDetails {
+        if (this._userDetails) return this._userDetails;
+        throw new Error("userdetails not set");
     }
 }

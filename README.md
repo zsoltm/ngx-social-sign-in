@@ -1,5 +1,5 @@
-Angular-Social-Sign-In
-======================
+ngx-Social-Sign-In
+==================
 
 Social sing-in module for Angular that supports Facebook, Google and other providers in the near future.
 
@@ -27,18 +27,18 @@ Planned support:
 Usage
 -----
 
-First as usual add [`angular-social-sign-in`][npm-page] to your project as a dependency.
+First as usual add [`ngx-social-sign-in`][npm-page] to your project as a dependency.
 
 With NPM:
 
 ``` bash
-npm install --save "angualr-social-sign-in"
+npm install --save "ngx-social-sign-in"
 ```
 
 or with yarn:
 
 ``` bash
-yarn add "angualr-social-sign-in"
+yarn add "ngx-social-sign-in"
 ```
 
 Once you have the dependencies the main module has to be imported in your app's module, and you need to provide a configuration for
@@ -63,7 +63,7 @@ each 3rd party provider you want to use:
 Then in a component for example you could inject the main `SignInService` and subscribe to the status:
 
 ``` typescript
-import { SocialSignInService, GlobalSignInStatus } from "angular-social-sign-in";
+import { SocialSignInService, GlobalSignInStatus } from "ngx-social-sign-in";
 
 @Component({ /* ... */ })
 export class AppComponent implements OnInit, OnDestroy {
@@ -163,4 +163,4 @@ It's a monorepo; with an Angular test application, after unchecking run
     yarn start # launch the example application
 
 [yarn]: https://yarnpkg.com/
-[demo-app]: https://angular-social-sign-in.github.com/
+[demo-app]: https://ngx-social-sign-in.github.com/testbed/

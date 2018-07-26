@@ -1,6 +1,6 @@
 import { Component, OnInit, OnDestroy } from "@angular/core";
 import { SocialSignInService, GlobalSignInStatus, FacebookSignInService,
-  GoogleSignInService, UserDetails, SignInToken } from "social-sign-in";
+  GoogleSignInService, UserDetails, SignInToken } from "ngx-social-sign-in";
 import { Subscription } from "rxjs";
 
 interface SignInData {
@@ -18,7 +18,7 @@ interface SignInData {
 })
 export class AppComponent implements OnInit, OnDestroy {
   signInStatus: GlobalSignInStatus = {};
-  title = "Angular-Social-Sign-In";
+  title = "ngx-Social-Sign-In";
 
   private readonly _signIns: Map<string, SignInData> = new Map();
   private _signInStatus?: Subscription;

@@ -1,7 +1,7 @@
 import { TestBed, async } from "@angular/core/testing";
 import { AppComponent } from "./app.component";
 import { UserDetailsComponent } from "./user-details.component";
-import { SocialSignInModule, SignInServiceConfig, } from "social-sign-in/social-sign-in";
+import { SocialSignInModule, SignInServiceConfig, } from "ngx-social-sign-in";
 
 describe("AppComponent", () => {
   beforeEach(async(() => {
@@ -30,13 +30,13 @@ describe("AppComponent", () => {
   it(`should have as title 'app'`, async(() => {
     const fixture = TestBed.createComponent(AppComponent);
     const app = fixture.debugElement.componentInstance;
-    expect(app.title).toEqual("Angular-Social-Sign-In");
+    expect(app.title).toEqual("ngx-Social-Sign-In");
   }));
 
   it("should render title in a h1 tag", async(() => {
     const fixture = TestBed.createComponent(AppComponent);
     fixture.detectChanges();
     const compiled = fixture.debugElement.nativeElement;
-    expect(compiled.querySelector("h1").textContent).toContain("Angular-Social-Sign-In");
+    expect(compiled.querySelector("h1").textContent).toContain("ngx-Social-Sign-In");
   }));
 });

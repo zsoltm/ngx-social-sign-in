@@ -2,7 +2,7 @@
     <div class="panel-header text-center">
         <div class="panel-title h5 mb-3">{{ title }}</div>
         <figure class="avatar avatar-xl">
-            <img [src]="userDetails.picture" />
+            <img [src]="userDetails.picture || '/assets/user/unknown_user.svg'"/>
         </figure>
         <p class="panel-subtitle">{{ userDetails.name }}</p>
     </div>
