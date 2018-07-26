@@ -52,7 +52,10 @@ export class GoogleSignInService implements SignInService {
                     token: authResponse.access_token
                 };
             }),
-            tap((loginToken) => this._loginStatus.next(loginToken))
+            tap({
+                next: (loginToken) => this._loginStatus.next(loginToken),
+                complete: () => { this._appref.tick(); }
+            })
         );
     }
 
