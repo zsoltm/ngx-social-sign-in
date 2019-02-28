@@ -19,10 +19,10 @@
     ],
     "paths": {
       "@zsoltm/ngx-social-sign-in": [
-        "dist/social-sign-in"
+        "projects/social-sign-in/src/public_api"
       ],
       "@zsoltm/ngx-social-sign-in/*": [
-        "dist/social-sign-in/*"
+        "projects/social-sign-in/src/*"
       ]
     }
   }
