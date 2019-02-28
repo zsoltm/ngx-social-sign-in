@@ -160,7 +160,6 @@ Requirements:
 
 It's a monorepo; with an Angular test application, after unchecking run
 
-    git submodules update # this will get the spectre CSS framework for demo app
     yarn install --frozen-lockfile # install dependencies
     yarn ng build social-sign-in # build module in /dist
     yarn start # launch the example application
