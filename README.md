@@ -106,7 +106,7 @@ To initiate a sign-in with a particular provider just call `signIn()` on a `Sign
 from the main `SocialSignInService`:
 
 ``` typescript
-import { SocialSignInService, FacebookSignInService } from "@zsoltm/social-sign-in";
+import { SocialSignInService, FacebookSignInService } from "@zsoltm/ngx-social-sign-in";
 
 @Component({ /* ... */ })
 export class AppComponent {
@@ -123,7 +123,7 @@ export class AppComponent {
 ... or the particular implementation can be also injected to the component, and can be used directly:
 
 ``` typescript
-import { FacebookSignInService } from "@zsoltm/social-sign-in";
+import { FacebookSignInService } from "@zsoltm/ngx-social-sign-in";
 
 @Component({ /* ... */ })
 export class GoogleSignInComponent {
